@@ -1,0 +1,11 @@
+# Salidas de compilación
+out/
+target/
+*.class
+
+# Configuración local de IntelliJ
+.idea/workspace.xml
+.idea/shelf/
+
+# Credenciales locales de la base de datos (NO se suben a GitHub)
+db.properties
