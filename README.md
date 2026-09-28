@@ -108,3 +108,27 @@ siguen ahí. Si la aplicación se cierra con una entrega en curso, al reiniciar 
 | 2–4 | Jerarquía `Pedido` abstracta con `PedidoComida`, `PedidoEncomienda`, `PedidoExpress` y `calcularTiempoEntrega()` |
 | 4–5 | `EstadoPedido`, cambios de estado `synchronized`, repartidores que entregan en un hilo (`TareaEntrega`) |
 | 6 | Interfaz Swing con MVC, observadores y `JTable` con `DefaultTableModel` |
+
+## Evidencias de funcionamiento
+
+Capturas en la carpeta `evidencias/` (MySQL Workbench y la aplicación):
+
+1. Script de estructura ejecutado: 3 tablas y 2 claves foráneas en `entrega`.
+
+   ![Script de estructura](evidencias/01_workbench_script_estructura.png)
+
+2. `JTable` con los pedidos leídos desde MySQL (estado inicial *Pendiente*).
+
+   ![JTable de pedidos](evidencias/02_jtable_pedidos_pendientes.png)
+
+3. `SELECT * FROM pedido;` después de las entregas (todos `ENTREGADO`).
+
+   ![SELECT pedido](evidencias/03_workbench_select_pedido.png)
+
+4. `SELECT * FROM entrega;` con la relación pedido–repartidor, fecha y hora.
+
+   ![SELECT entrega](evidencias/04_workbench_select_entrega.png)
+
+5. `SELECT * FROM repartidor;` con los repartidores registrados desde la interfaz.
+
+   ![SELECT repartidor](evidencias/05_workbench_select_repartidor.png)
