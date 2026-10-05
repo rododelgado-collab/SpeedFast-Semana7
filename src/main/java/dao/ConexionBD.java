@@ -35,8 +35,6 @@ public class ConexionBD {
     // Parámetros del conector para MySQL 8 en un equipo local
     private static final String PARAMETROS = "allowPublicKeyRetrieval=true&serverTimezone=America/Santiago";
 
-    private static final Properties CONFIG = cargarConfiguracion();
-
     private ConexionBD() {
     }
 
@@ -64,12 +62,14 @@ public class ConexionBD {
             throw new SQLException("No se encontró el driver de MySQL. Revise la dependencia "
                     + "mysql-connector-j en el pom.xml y recargue Maven.", e);
         }
-        String url = CONFIG.getProperty("db.url", URL_POR_DEFECTO);
+        // Se lee en cada conexión (es un archivo chico) para respetar -Ddb.config aunque se defina tarde
+        Properties config = cargarConfiguracion();
+        String url = config.getProperty("db.url", URL_POR_DEFECTO);
         if (!url.contains("?")) {
             url += "?" + PARAMETROS;
         }
-        String usuario = CONFIG.getProperty("db.user", USUARIO_POR_DEFECTO);
-        String clave = CONFIG.getProperty("db.password", CLAVE_POR_DEFECTO);
+        String usuario = config.getProperty("db.user", USUARIO_POR_DEFECTO);
+        String clave = config.getProperty("db.password", CLAVE_POR_DEFECTO);
         return DriverManager.getConnection(url, usuario, clave);
     }
 

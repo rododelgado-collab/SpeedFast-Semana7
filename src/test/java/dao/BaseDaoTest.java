@@ -24,6 +24,14 @@ import java.sql.Statement;
  */
 abstract class BaseDaoTest {
 
+    // Si se ejecuta desde IntelliJ (sin Maven) nadie definió db.config: se usa db-test.properties.
+    // Con "mvn test" ya lo define el pom.xml (surefire) y este valor no se pisa.
+    static {
+        if (System.getProperty("db.config") == null) {
+            System.setProperty("db.config", "db-test.properties");
+        }
+    }
+
     protected final PedidoDAO pedidoDAO = new PedidoDAO();
     protected final RepartidorDAO repartidorDAO = new RepartidorDAO();
     protected final EntregaDAO entregaDAO = new EntregaDAO();
