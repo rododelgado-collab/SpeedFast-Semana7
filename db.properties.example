@@ -1,5 +1,16 @@
-# Copia este archivo como "db.properties" (en la raíz del proyecto, junto al pom.xml)
-# y ajusta la contraseña de tu MySQL. db.properties NO se sube a GitHub.
+# Plantilla de configuración de la conexión JDBC a MySQL.
+#
+# 1. Copia este archivo como "db.properties" (en la raíz del proyecto, junto al pom.xml).
+# 2. Ajusta los tres valores según tu MySQL.
+# El archivo db.properties NO se sube a GitHub (está en .gitignore): aquí solo va la plantilla.
+#
+# Con estos tres datos se cambia toda la conexión sin modificar el código fuente.
+
+# Servidor, puerto y base de datos (cambia localhost / 3306 / speedfast_db si usas otros)
 db.url=jdbc:mysql://localhost:3306/speedfast_db
+
+# Usuario de MySQL
 db.user=root
+
+# Contraseña de ese usuario (déjala vacía si tu usuario no tiene contraseña)
 db.password=tu_contraseña

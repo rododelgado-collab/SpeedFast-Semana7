@@ -10,9 +10,17 @@ import java.util.Properties;
 /**
  * Centraliza la conexión JDBC con MySQL usando DriverManager.
  *
- * Los datos de acceso se leen del archivo db.properties (raíz del proyecto), que NO se
- * sube a GitHub para no publicar la contraseña. Si el archivo no existe se usan los
- * valores por defecto: root, sin contraseña, base speedfast_db en localhost:3306.
+ * Los tres datos de acceso (db.url, db.user y db.password) se leen del archivo
+ * db.properties (raíz del proyecto), así se puede cambiar el servidor, el usuario, la base
+ * o la contraseña sin tocar el código fuente. Ese archivo NO se sube a GitHub (.gitignore);
+ * en el repositorio solo está la plantilla db.properties.example.
+ *
+ * Si el archivo no existe, o le falta alguna clave, se usan los valores por defecto:
+ * jdbc:mysql://localhost:3306/speedfast_db, usuario root y sin contraseña.
+ *
+ * El nombre del archivo puede cambiarse con la propiedad del sistema -Ddb.config=archivo.
+ * Las pruebas unitarias la usan para apuntar a db-test.properties (base speedfast_test),
+ * de modo que nunca toquen los datos reales.
  *
  * @author Rodolfo Delgado
  */
@@ -21,7 +29,8 @@ public class ConexionBD {
     private static final String URL_POR_DEFECTO = "jdbc:mysql://localhost:3306/speedfast_db";
     private static final String USUARIO_POR_DEFECTO = "root";
     private static final String CLAVE_POR_DEFECTO = "";
-    private static final String ARCHIVO_CONFIG = "db.properties";
+    private static final String ARCHIVO_CONFIG_POR_DEFECTO = "db.properties";
+    private static final String PROPIEDAD_ARCHIVO = "db.config";
 
     // Parámetros del conector para MySQL 8 en un equipo local
     private static final String PARAMETROS = "allowPublicKeyRetrieval=true&serverTimezone=America/Santiago";
@@ -33,7 +42,8 @@ public class ConexionBD {
 
     private static Properties cargarConfiguracion() {
         Properties p = new Properties();
-        try (FileInputStream in = new FileInputStream(ARCHIVO_CONFIG)) {
+        String archivo = System.getProperty(PROPIEDAD_ARCHIVO, ARCHIVO_CONFIG_POR_DEFECTO);
+        try (FileInputStream in = new FileInputStream(archivo)) {
             p.load(in);
         } catch (IOException e) {
             // Sin archivo se usan los valores por defecto
