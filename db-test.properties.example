@@ -1,0 +1,13 @@
+# Plantilla de configuración para las PRUEBAS UNITARIAS de los DAO.
+#
+# 1. Crea la base de pruebas ejecutando bd/script_estructura_test.sql en MySQL Workbench.
+# 2. Copia este archivo como "db-test.properties" (en la raíz del proyecto, junto al pom.xml).
+# 3. Ajusta usuario y contraseña. Después: mvn test
+#
+# El archivo db-test.properties NO se sube a GitHub (está en .gitignore).
+# Importante: las pruebas borran los datos de las tablas antes de cada test, por eso solo se
+# ejecutan si la base se llama "*_test" (speedfast_test). Nunca apuntes esto a speedfast_db.
+
+db.url=jdbc:mysql://localhost:3306/speedfast_test
+db.user=root
+db.password=tu_contraseña
